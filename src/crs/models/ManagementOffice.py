@@ -61,17 +61,17 @@ class ManagementOffice:
             num_household = len(households)
             mean_kwh = round(APT / num_household)
 
-            apart = Household(
+            self.apart = Household(
                 name="아파트",
                 kwh=mean_kwh,
                 contract=self.fee,
                 contract_name=contract
             )
 
-            basic = apart.basic * num_household
-            elec_rate = apart.elec_rate * num_household
-            env = apart.env * num_household
-            fuel = apart.fuel * num_household
+            basic = self.apart.basic * num_household
+            elec_rate = self.apart.elec_rate * num_household
+            env = self.apart.env * num_household
+            fuel = self.apart.fuel * num_household
 
             elec_bill = basic + elec_rate + env - fuel
             self.bill = mt.floor((elec_bill
