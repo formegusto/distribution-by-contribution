@@ -59,7 +59,7 @@ class ManagementOffice:
             # 전체를 하나의 가구 본 상태에서 계약대로 계산식 진행
             # 후에 * len(household) 를 통해 아파트 전체 요금 통지서 확보
             num_household = len(households)
-            mean_kwh = APT / num_household
+            mean_kwh = round(APT / num_household)
 
             apart = Household(
                 name="아파트",
@@ -67,6 +67,7 @@ class ManagementOffice:
                 contract=self.fee,
                 contract_name=contract
             )
+
             basic = apart.basic * num_household
             elec_rate = apart.elec_rate * num_household
             env = apart.env * num_household

@@ -1,6 +1,6 @@
-from models.Household import Household
-from models.Public import Public
-from models.ManagementOffice import ManagementOffice
+from src.crs.models.Household import Household
+from src.crs.models.Public import Public
+from src.crs.models.ManagementOffice import ManagementOffice
 
 
 __all__ = ['Household', 'Public', 'ManagementOffice']
