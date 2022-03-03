@@ -133,7 +133,7 @@ def bill_calc(month_usage_df, peak_df, min_per, max_per):
         std = round(month_datas_df['usage (kWh)'].std())
         rsd = round(std/mean * 100)
 
-        print("가구 수: {} / 평균: {} / 표준편차: {} / 변동계수: {}".format(count, mean, std, rsd))
+        # print("가구 수: {} / 평균: {} / 표준편차: {} / 변동계수: {}".format(count, mean, std, rsd))
 
         infos = {
             "count": count,
