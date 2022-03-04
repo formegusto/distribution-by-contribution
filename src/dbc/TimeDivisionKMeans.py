@@ -2,17 +2,18 @@ import math as mt
 
 
 class TimeDivisionKMeans:
-    def __init__(self, df):
+    def __init__(self, df, size=3):
         self.df = df
+        self.size = size
         self.setK()
 
     def setK(self):
         households_cnt = len(self.df.columns)
+        self.K = round(mt.sqrt(households_cnt / 2))
 
-        print("-----[setK info]-----")
+    def init_setting(self):
+        print("init_setting func start")
+        self.division_round = 0
+        self.round = 0
 
-        print("data length : {}".format(households_cnt))
-        self.K = mt.ceil(mt.sqrt(households_cnt / 2))
-        print("K is {}".format(self.K))
-
-        print("---------------------")
+        print("init_setting func end")
