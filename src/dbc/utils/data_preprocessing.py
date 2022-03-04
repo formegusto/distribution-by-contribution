@@ -20,4 +20,7 @@ def data_preprocessing(xlsx):
     df.index = date_list
     df.columns = household_names
 
+    df = df.replace("-", 0)
+    df = df.astype("float")
+
     return df
