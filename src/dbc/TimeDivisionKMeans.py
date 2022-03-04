@@ -40,24 +40,24 @@ class TimeDivisionKMeans:
                     init_K = np.array([])
                     K_pattern = np.array([])
 
-                    while len(init_K) < self.K:
-                        _K = ran.randint(0, self.households_size - 1)
-
-                        if _K not in init_K:
-                            init_K = np.append(init_K, _K)
-
                     now_df = self.division_df[division_round].copy().T
                     idxes = now_df.index
 
-                    for _K in init_K:
+                    while len(init_K) < self.K:
+                        _K = ran.randint(0, self.households_size - 1)
                         idx = idxes[int(_K)]
                         pattern = now_df.loc[idx].values
-                        K_pattern = np.append(
-                            K_pattern,
-                            pattern
-                        )
 
-                    K_pattern = K_pattern.reshape(-1, self.size)
+                        if (_K not in init_K) and \
+                                ~(False if len(K_pattern) == 0 else (K_pattern == pattern).any()):
+                            init_K = np.append(init_K, _K)
+                            K_pattern = np.append(
+                                K_pattern,
+                                pattern
+                            )
+
+                            K_pattern = K_pattern.reshape(-1, self.size)
+
                 else:
                     next_round_K_pattern = np.array([])
 
@@ -74,10 +74,16 @@ class TimeDivisionKMeans:
                 clusters = np.array([])
 
                 for idx in now_df.index:
-                    test = now_df.loc[idx].values
-                    test = np.expand_dims(test, axis=0)
-                    cluster = euc(test, K_pattern).argmin()
-                    clusters = np.append(clusters, cluster)
+                    try:
+                        test = now_df.loc[idx].values
+                        test = np.expand_dims(test, axis=0)
+                        cluster = euc(test, K_pattern).argmin()
+                        clusters = np.append(clusters, cluster)
+                    except:
+                        print("# Error\ndivision 지점 {}".format(division_round))
+                        print(prev_clusters)
+                        print(test, K_pattern)
+                        return
 
                 if (clusters == prev_clusters).all():
                     _early_stop_cnt += 1
