@@ -81,6 +81,8 @@ class TimeDivisionKMeans:
                         clusters = np.append(clusters, cluster)
                     except:
                         print("# Error\ndivision 지점 {}".format(division_round))
+                        print(init_K)
+                        print(K_pattern)
                         print(prev_clusters)
                         print(test, K_pattern)
                         return
