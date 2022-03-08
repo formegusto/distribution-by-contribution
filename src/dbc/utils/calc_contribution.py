@@ -3,6 +3,7 @@ import numpy as np
 
 
 def calc_contribution(hc, ci, df):
+    print("new!")
     _hc = hc.copy()
     _test = list()
 
@@ -18,9 +19,29 @@ def calc_contribution(hc, ci, df):
             _h_pattern = _hc_pattern[division_round]
 
             if _c_pattern.sum() <= _h_pattern.sum():
-                contributions.append(
-                    cont
-                )
+                upper_conts = conts[conts > cont]
+                if len(upper_conts) == 0:
+                    contributions.append(
+                        cont
+                    )
+                else:
+                    upper_cont = upper_conts[upper_conts.argsort()][0]
+
+                    _conts = np.arange(upper_cont, cont)
+                    _conts_max = len(_conts)
+
+                    _percentage = (_h_pattern.sum() -
+                                   _c_pattern.sum()) / _c_pattern.sum()
+                    _new_cont_idx = round(_conts_max * _percentage)
+
+                    if _new_cont_idx == _conts_max:
+                        contributions.append(
+                            cont
+                        )
+                    else:
+                        contributions.append(
+                            _conts[_new_cont_idx]
+                        )
             else:
                 lower_conts = conts[conts < cont]
                 if len(lower_conts) == 0:
