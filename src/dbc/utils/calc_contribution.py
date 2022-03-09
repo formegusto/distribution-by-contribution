@@ -3,7 +3,7 @@ import numpy as np
 
 
 def calc_contribution(hc, ci, df):
-    print("new!")
+    print("original!")
     _hc = hc.copy()
     _test = list()
 

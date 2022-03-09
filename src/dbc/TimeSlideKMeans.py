@@ -17,7 +17,7 @@ def tss(mean_pattern, df):
     return tss
 
 
-class TimeDivisionKMeans:
+class TimeSlideKMeans:
     def __init__(self, df, size=3):
         self.df = df
         self.size = size
@@ -31,9 +31,9 @@ class TimeDivisionKMeans:
     def init_setting(self):
         self.households_size = len(self.df.columns)
         self.total_size = len(self.df)
-        self.division_size = round(self.total_size / self.size)
+        self.division_size = self.total_size - (self.size - 1)
         self.division_df = [self.df[_:_ + self.size]
-                            for _ in range(0, self.total_size, self.size)]
+                            for _ in range(0, self.division_size)]
 
         tss_list = np.array([])
         for division_df in self.division_df:
@@ -46,6 +46,7 @@ class TimeDivisionKMeans:
         households_cluster = pd.DataFrame(columns=self.df.columns)
         cluster_info = list()
 
+        print("------all rounds {}------".format(self.division_size))
         for division_round in range(0, self.division_size):
             ecv_check = 0
             _round = 0
@@ -72,7 +73,7 @@ class TimeDivisionKMeans:
 
                         if (_K not in init_K) and \
                                 ~(False if len(K_pattern) == 0 else (K_pattern == pattern).any()) and \
-                            (_K not in except_K):
+                        (_K not in except_K):
                             init_K = np.append(init_K, _K)
                             K_pattern = np.append(
                                 K_pattern,
