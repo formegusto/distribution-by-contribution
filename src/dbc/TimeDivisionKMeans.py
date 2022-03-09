@@ -72,7 +72,7 @@ class TimeDivisionKMeans:
 
                         if (_K not in init_K) and \
                                 ~(False if len(K_pattern) == 0 else (K_pattern == pattern).any()) and \
-                            (_K not in except_K):
+                        (_K not in except_K):
                             init_K = np.append(init_K, _K)
                             K_pattern = np.append(
                                 K_pattern,
@@ -125,7 +125,7 @@ class TimeDivisionKMeans:
                 else:
                     _early_stop_cnt = 0
 
-                if _early_stop_cnt >= 3:
+                if _early_stop_cnt >= early_stop_cnt:
                     if (ecv_check < 20) & (ecv <= 80):
                         # 제일 적게 가지고 있는 K는 다음 턴에서 제외 시키기
                         cluster_cnt = np.array([])
