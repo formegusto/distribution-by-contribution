@@ -31,7 +31,6 @@ def rank(cont):
 
 
 def calc_contribution_rank(hc, ci):
-    print("rank!")
     _hc = hc.copy()
     _test = list()
 
