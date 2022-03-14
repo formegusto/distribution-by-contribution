@@ -14,7 +14,7 @@ low_pressure_fee_summer = [
 high_pressure_fee = [
     [0, 200, 730, 73.3],
     [201, 400, 1260, 142.3],
-    [400, float('inf'), 6060, 210.6]
+    [401, float('inf'), 6060, 210.6]
 ]
 # 주택용 고압 7~8
 high_pressure_fee_summer = [
