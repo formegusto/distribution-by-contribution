@@ -29,11 +29,13 @@ class TimeDivisionKMeans:
         self.K = round(mt.sqrt(households_cnt / 2))
 
     def init_setting(self):
+        print("setting start")
         self.households_size = len(self.df.columns)
         self.total_size = len(self.df)
         self.division_size = round(self.total_size / self.size)
         self.division_df = [self.df[_:_ + self.size]
                             for _ in range(0, self.total_size, self.size)]
+        print("setting end")
 
         tss_list = np.array([])
         for division_df in self.division_df:
@@ -70,16 +72,23 @@ class TimeDivisionKMeans:
                         idx = idxes[int(_K)]
                         pattern = now_df.loc[idx].values
 
-                        if (_K not in init_K) and \
+                        if self.division_size == 1:
+                            if (_K not in init_K):
+                                init_K = np.append(init_K, _K)
+                                K_pattern = np.append(
+                                    K_pattern,
+                                    pattern
+                                )
+                        else:
+                            if (_K not in init_K) and \
                                 ~(False if len(K_pattern) == 0 else (K_pattern == pattern).any()) and \
-                        (_K not in except_K):
-                            init_K = np.append(init_K, _K)
-                            K_pattern = np.append(
-                                K_pattern,
-                                pattern
-                            )
-
-                            K_pattern = K_pattern.reshape(-1, self.size)
+                                    (_K not in except_K):
+                                init_K = np.append(init_K, _K)
+                                K_pattern = np.append(
+                                    K_pattern,
+                                    pattern
+                                )
+                        K_pattern = K_pattern.reshape(-1, self.size)
 
                 else:
                     next_round_K_pattern = np.array([])
