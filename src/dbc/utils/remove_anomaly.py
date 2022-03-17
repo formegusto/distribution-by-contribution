@@ -26,7 +26,7 @@ def remove_anomaly(df, cont_df):
         anomaly_kwh = sum_df[anomaly]
 
         # 3. 현재 기여도 그룹과 다음 기여도 그룹 중에 어디가 더 유사한가?
-        now_idx = [_ not in anomaly for _ in df.columns]
+        now_idx = [_ not in anomalies for _ in df.columns]
         now_cont = sum_df[now_idx][cont_mean_df == anomaly_cont]
         next_cont = sum_df[now_idx][cont_mean_df == (anomaly_cont + 1)]
 
