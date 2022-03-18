@@ -22,7 +22,7 @@ class TimeDivisionKMeans:
         self.df = df
         self.size = size
         self.setK()
-        self.init_setting()
+        # self.init_setting()
 
     def setK(self):
         households_cnt = len(self.df.columns)
